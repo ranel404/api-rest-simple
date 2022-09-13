@@ -1,4 +1,6 @@
 var Cervezas = require("../models/cervezas")
+const Joi = require('joi')
+
 module.exports = {
     search: function (req, res) {
         var q = req.query.q
@@ -39,18 +41,26 @@ module.exports = {
     },
     create: function (req, res) {
         var cerveza = req.body
-        Cervezas.save(cerveza, function (err, cerveza) {
-            if (err) {
-                return res.status(500).json({
-                    message: "Error al guardar la cerveza",
-                    error: err,
+        const errorValidator = validar(cerveza)
+        if (!errorValidator) {
+            Cervezas.save(cerveza, function (err, cerveza) {
+                if (err) {
+                    return res.status(500).json({
+                        message: "Error al guardar la cerveza",
+                        error: err,
+                    })
+                }
+                return res.status(201).json({
+                    message: "saved",
+                    _id: cerveza._id,
                 })
-            }
-            return res.status(201).json({
-                message: "saved",
-                _id: cerveza._id,
             })
-        })
+        }else{
+            return res.status(500).json({
+                message: "Error al validar la cerveza",
+                error: errorValidator
+            })
+        }
     },
     update: function (req, res) {
         var id = req.params.id
@@ -86,4 +96,16 @@ module.exports = {
             return res.json(cerveza)
         })
     },
+    validate: function (cerveza) {
+        const CervezaSchema = Joi.object({
+            _id: Joi.number().required(),
+            nombre: Joi.string().min(1).max(30).required(),
+            descripcion: Joi.string().min(1).max(10).required(),
+            graduacion: Joi.number().required(),
+            envase: Joi.string().min(1).max(15).required(),
+            precio: Joi.number().required()
+        })
+        const { error } = CervezaSchema.validate(cerveza)
+        return error
+    }
 }
