@@ -1,4 +1,4 @@
-const router = requiere('express').Router()
+const router = require('express').Router()
 const cervezas = require('./cervezas')
 
 router.use('/cervezas', cervezas)

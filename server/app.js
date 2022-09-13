@@ -10,7 +10,7 @@ app.use(express.json())
 
 
 //Routes
-const router = require('./router')
+const router = require('./routes')
 
 //Enrutador
 app.use('/api', router)

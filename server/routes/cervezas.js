@@ -1,27 +1,29 @@
 const router = require('express').Router()
+const cervezasController = require ('../controllers/cervezasController')
+
 
 router.get('/search', (req,res)=>{
-    res.json({message: "Vas a buscar una cerveza"})
+    cervezasController.search(req, res)
 })
 
 router.get('/', (req,res)=>{
-    res.json({message: "Estas conectado a la API. Recurso: Cervezas"})
+    cervezasController.list(req, res)
 })
 
 router.get('/:id', (req,res) =>{
-    res.json({message: "Vas a obtener la cerveza con id" + req.params.id})
+    cervezasController.show(req, res)
 })
 
 router.post('/', (req,res)=>{
-    res.json({message: "Vas a añadir una cerveza con id" + req.params.id})
+    cervezasController.create(req, res)
 })
 
 router.put('/:id', (req,res) =>{ 
-    res.json({message: "Vas a actualizar una cerveza con id" + req.params.id})
+    cervezasController.update(req, res)
 })
 
 router.delete('/:id', (req,res) =>{ 
-    res.json({message: "Vas a eliminar una cerveza con id" + req.params.id})
+    cervezasController.remove(req, res)
 })
 
 module.exports = router
