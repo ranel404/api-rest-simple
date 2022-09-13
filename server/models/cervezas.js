@@ -1,3 +1,5 @@
+//Modelo de cervezas
+
 const cervezas = [
     {
         _id: 1, nombre: 'Porter', descripcion: 'menos oscuras y potentes', graduacion: 87, envase:

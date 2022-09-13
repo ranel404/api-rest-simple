@@ -15,6 +15,7 @@ const router = require('./routes')
 //Enrutador
 app.use('/api', router)
 
+// Servidor a la escucha
 app.listen(PORT, ()=>{
     console.log(`server on port ${PORT}`)
 })

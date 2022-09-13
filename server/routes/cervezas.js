@@ -1,7 +1,10 @@
+// Instancia del metodo Router de express
 const router = require('express').Router()
+
+// Importamos el controlador de la ruta cervezas
 const cervezasController = require ('../controllers/cervezasController')
 
-
+// Middlewares
 router.get('/search', (req,res)=>{
     cervezasController.search(req, res)
 })
